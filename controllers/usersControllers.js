@@ -8,8 +8,8 @@ export const createNewUser = async (req, res, next) => {
     if (user) {
       throw HttpError(409, "user exist");
     }
-    const newUser = createUser(req.body);
-    res.status(201);
+    const newUser = await createUser(req.body);
+    res.status(201).json({newUser});
   } catch (err) {
     console.log(err);
     next(err);
