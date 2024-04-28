@@ -1,5 +1,6 @@
 import HttpError from "../helpers/HttpError.js";
 import {
+  clearToken,
   createUser,
   findUserByEmail,
   updateUserWhisToken,
@@ -47,4 +48,18 @@ export const loginUser = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+export const logout = async (req, res, next) => {
+  try {
+    const { _id } = req.user;
+    await clearToken(_id);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const currentUser = (req, res, next) => {
+  const { name, email, avatar } = req.user;
 };
