@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import HttpError from "../helpers/HttpError";
-import { findUserById } from "../services/usersServices";
+import HttpError from "../helpers/HttpError.js";
+import { findUserById } from "../services/usersServices.js";
 
 export const protect = async (req, res, next) => {
   try {
