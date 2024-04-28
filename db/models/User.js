@@ -16,7 +16,9 @@ const userSchema = new Schema(
       required: true,
     },
     token: String,
+    avatar: { type: String, default: "" },
   },
+
   {
     versionKey: false,
   }
@@ -24,4 +26,7 @@ const userSchema = new Schema(
 userSchema.methods.hashPassword = async function () {
   this.password = await bcryptjs.hash(this.password, 10);
 };
+userSchema.methods.comparePass = async function (pass) {
+  return await bcryptjs.compare(pass, this.password)
+}
 export const User = model("user", userSchema);

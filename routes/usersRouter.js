@@ -1,13 +1,13 @@
 import express from "express";
-import { createUserSchema } from "../schemas/usersSchemas.js";
+import { createUserSchema, loginUserSchema } from "../schemas/usersSchemas.js";
 import validateBody from "../helpers/validateBody.js";
-import { createNewUser } from "../controllers/usersControllers.js";
+import { createNewUser, loginUser } from "../controllers/usersControllers.js";
 
 const usersRouter = express.Router();
 
 usersRouter.post("/signup", validateBody(createUserSchema), createNewUser);
 
-usersRouter.post("/login");
+usersRouter.post("/login", validateBody(loginUserSchema), loginUser);
 
 usersRouter.post("/logout");
 

@@ -1,12 +1,13 @@
 import jsonWebToken from "jsonwebtoken";
-import { User } from "../db/models/User";
+import { User } from "../db/models/User.js";
+import gravatar from 'gravatar'
 
 export const findUserByEmail = async (email) => {
   const user = await User.findOne({ email });
   return user;
 };
 
-const updateUserWhisToken = async (id) => {
+export const updateUserWhisToken = async (id) => {
   const { SECRET_KEY } = process.env;
   const token = jsonWebToken.sign({ id }, SECRET_KEY);
   const user = await User.findByIdAndUpdate(id, { token }, { new: true });
@@ -14,9 +15,11 @@ const updateUserWhisToken = async (id) => {
 };
 
 export const createUser = async (userData) => {
-  const newUser = new User(userData);
+  const avatar = gravatar.url(userData.email)
+  const newUser = new User({...userData, avatar});
   await newUser.hashPassword();
   await newUser.save();
   const user = updateUserWhisToken(newUser._id);
   return user;
 };
+
