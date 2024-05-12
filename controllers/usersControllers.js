@@ -62,4 +62,10 @@ export const logout = async (req, res, next) => {
 
 export const currentUser = (req, res, next) => {
   const { name, email, avatar } = req.user;
+
+  res.json({
+    name,
+    email,
+    avatar,
+  });
 };

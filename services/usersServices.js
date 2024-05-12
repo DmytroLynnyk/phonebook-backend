@@ -2,15 +2,9 @@ import jsonWebToken from "jsonwebtoken";
 import { User } from "../db/models/User.js";
 import gravatar from "gravatar";
 
-export const findUserByEmail = async (email) => {
-  const user = await User.findOne({ email });
-  return user;
-};
+export const findUserByEmail = (email) => User.findOne({ email });
 
-export const findUserById = async (id) => {
-  const user = await User.findById(id);
-  return user;
-};
+export const findUserById = (id) => User.findById(id);
 
 export const updateUserWhisToken = async (id) => {
   const { SECRET_KEY } = process.env;

@@ -1,22 +1,23 @@
 import express from "express";
 import {
   getAllContacts,
-  getOneContact,
+  // getOneContact,
   deleteContact,
   createContact,
-  updateContact,
+  // updateContact,
 } from "../controllers/contactsControllers.js";
+import { protect } from "../midelware/auth.js";
 
 const contactsRouter = express.Router();
 
-contactsRouter.get("/", getAllContacts);
+contactsRouter.get("/", protect, getAllContacts);
 
-contactsRouter.get("/:id", getOneContact);
+// contactsRouter.get("/:id", getOneContact);
 
-contactsRouter.delete("/:id", deleteContact);
+contactsRouter.delete("/:id", protect, deleteContact);
 
-contactsRouter.post("/", createContact);
+contactsRouter.post("/", protect, createContact);
 
-contactsRouter.put("/:id", updateContact);
+// contactsRouter.put("/:id", updateContact);
 
 export default contactsRouter;
